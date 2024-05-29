@@ -104,7 +104,7 @@ const Doctor ={
                     await collection.insertOne(time);
                    res.status(200).send("Success.....");
             }catch (err){
-                res.status(400).send("Invalid....");
+                res.status(400).send("input Error......");
             } 
           }
 }
