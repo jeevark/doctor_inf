@@ -54,7 +54,7 @@ db.connect()
   app.post('/signup',controll.signup);
   app.get('/getinf',controll.getUsers);
   app.post('/login',controll.loginuser);
-  app.post('/time',controll.avile);
+  app.post('/time',controll.avail);
   
 
   app.get('/posts',authenticateToken,(req,res)=>{

@@ -95,7 +95,7 @@ const Doctor ={
                         res.status(400).send("Invalid....");
                     }  
           },
-          avile:async(req,res)=>{
+          avail:async(req,res)=>{
             try{
                 let document ='d_avail';
                 const time = req.body;
