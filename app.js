@@ -29,6 +29,7 @@ app.use(bodyParser.json())
 
 const controll = require('./controllers/DoctorSignup');
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
