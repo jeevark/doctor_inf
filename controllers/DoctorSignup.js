@@ -18,7 +18,7 @@ const Doctor ={
                         return res.status(400).json({ error: err.message });
                     }
                     const doctor_inf = req.body;
-
+                    console.log(req.body.filename);
                     doctor_inf['password']  = await bcrypt.hashSync(doctor_inf['password'],20);
                      
                      console.log(doctor_inf['password']);
