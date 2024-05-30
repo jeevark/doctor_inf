@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const uuid = require('uuid').v4;
 const jwt =require('jsonwebtoken');
 
-const ACCESS_TOKEN ="fbvglafghzdhdirgfasdlfger";
 
 let document = 'doctor_inf';
 const sessions ={}; 
@@ -68,16 +67,16 @@ const Doctor ={
             
                 if(useremail!=''&& useremail!= null){
                     const collections = getDB().collection(document);
-                    const result = await collections.findOne({useremail:useremail});
+                    const result = await collections.findOne({email:useremail});
 
                     console.log(result.password);
 
-                    const psw = bcrypt.compare(password,result.password);
+                    const psw = bcrypt.compareSync(password,result.password)
                     if(!psw){
                         res.status(400).send(`password Don't Match............`);
                      }
                     else{
-                        const token_id =  jwt.sign({useremail,password},{ACCESS_TOKEN},{expiresIn:"10d"});
+                        const token_id =  jwt.sign(useremail,password,process.env.ACCESS_TOKEN);
 
                                 sessions[sessionId] = {useremail,userId : 1};
 
