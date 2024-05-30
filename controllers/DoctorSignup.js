@@ -4,6 +4,7 @@ const uuid = require('uuid').v4;
 const jwt =require('jsonwebtoken');
 
 const ACCESS_TOKEN = 'fbvglafghzdhdirgfasdlfger';
+const upload =require('../File_uploads/single')
 let document = 'doctor_inf';
 const sessions ={}; 
 
@@ -11,6 +12,11 @@ const Doctor ={
 
         signup:async(req,res)=>{
             try {
+                upload(req, res, async function (err) {
+                    if (err) {
+                        console.error("Error uploading file: " + err);
+                        return res.status(400).json({ error: err.message });
+                    }
                     const doctor_inf = req.body;
 
                     doctor_inf['password']  = await bcrypt.hashSync(doctor_inf['password'],20);
@@ -28,7 +34,7 @@ const Doctor ={
                    await collection.insertOne(doctor_inf);
                    res.status(200).send("Success.....");
 
-                } catch (error) {
+                })} catch (error) {
                     console.error('Error creating user:', error);
                     if (error.code === 11000) {
                     // Duplicate key violation error
