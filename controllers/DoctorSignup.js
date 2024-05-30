@@ -76,7 +76,7 @@ const Doctor ={
                         res.status(400).send(`password Don't Match............`);
                      }
                     else{
-                        let token_id =  jwt.sign({useremail, password},ACCESS_TOKEN,{expiresIn:'30d'});
+                        let token_id =  jwt.sign({useremail, password},ACCESS_TOKEN,{expiresIn:'2d'});
 
                                 sessions[sessionId] = {useremail,userId : 1};
 
