@@ -12,7 +12,7 @@ const Doctor ={
 
         signup:async(req,res)=>{
             try {
-                upload(req, res, async function (err) {
+                upload(req, res, function (err) {
                     if (err) {
                         console.error("Error uploading file: " + err);
                         return res.status(400).json({ error: err.message });
@@ -39,19 +39,19 @@ const Doctor ={
                         filename      : req.file.filename
                         };
                     console.log(req.body.filename);
-                    doctor_inf['password']  = await bcrypt.hashSync(doctor_inf['password'],20);
+                    doctor_inf['password']  =  bcrypt.hashSync(doctor_inf['password'],20);
                      
                      console.log(doctor_inf['password']);
 
                     const db = getDB();
                     const collection = db.collection(document);
-                    await collection.createIndex({
+                     collection.createIndex({
                         Dr_id:1,
                         Mail_id: 1
                     }, {
                         unique: true
                     })
-                   await collection.insertOne(doctor_inf);
+                   collection.insertOne(doctor_inf);
                    res.status(200).send("Success.....");
 
                 })} catch (error) {
