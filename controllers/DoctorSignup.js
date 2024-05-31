@@ -12,21 +12,20 @@ const Doctor ={
 
         signup:async(req,res)=>{
             try {
-                upload(req, res, function (err) {
+                upload(req, res, async function (err) {
                     if (err) {
                         console.error("Error uploading file: " + err);
                         return res.status(400).json({ error: err.message });
                     }
                     const doctor_inf ={
                         Dr_id         : req.body.Dr_id,
-                        dr_name       : req.body.dr_name,
+                        dr_name       : req.body.Dr_name,
                         Gender        : req.body.Gender,
                         Degree        : req.body.Degree,
                         Yr_of_passing : req.body.Yr_of_passing,
                         Univ_Board    : req.body.Univ_Board,
                         Category      : req.body.Category,
                         Govt_Private  : req.body.Govt_Private,
-                        Yr_of_exp     : req.body.Yr_of_exp,
                         Place         : req.body.Place,
                         City          : req.body.City,
                         District      : req.body.District,
@@ -34,24 +33,28 @@ const Doctor ={
                         Adhaar_No     : req.body.Adhaar_No,
                         Mobile_Num    : req.body.Mobile_Num,
                         Mail_id       : req.body.Mail_id,
+                        password      : req.body.password,
                         Approved      : req.body.Approved,
                         Language      : req.body.Language,
                         filename      : req.file.filename
                         };
-                    console.log(req.body.filename);
-                    doctor_inf['password']  =  bcrypt.hashSync(doctor_inf['password'],20);
+                    var d =Date.now();
+                    console.log(doctor_inf);
+                    console.log(d);
+
+                    doctor_inf['password']  = await bcrypt.hashSync(doctor_inf.password,20);
                      
                      console.log(doctor_inf['password']);
 
                     const db = getDB();
                     const collection = db.collection(document);
-                     collection.createIndex({
+                     await collection.createIndex({
                         Dr_id:1,
                         Mail_id: 1
                     }, {
                         unique: true
                     })
-                   collection.insertOne(doctor_inf);
+                   await collection.insertOne(doctor_inf);
                    res.status(200).send("Success.....");
 
                 })} catch (error) {
@@ -93,7 +96,7 @@ const Doctor ={
             
                 if(useremail!=''&& useremail!= null){
                     const collections = getDB().collection(document);
-                    const result = await collections.findOne({useremail:useremail});
+                    const result = await collections.findOne({Mail_id:useremail});
 
                     console.log(result.password);
 
