@@ -17,7 +17,27 @@ const Doctor ={
                         console.error("Error uploading file: " + err);
                         return res.status(400).json({ error: err.message });
                     }
-                    const doctor_inf = req.body;
+                    const doctor_inf ={
+                        Dr_id         : req.body.Dr_id,
+                        dr_name       : req.body.dr_name,
+                        Gender        : req.body.Gender,
+                        Degree        : req.body.Degree,
+                        Yr_of_passing : req.body.Yr_of_passing,
+                        Univ_Board    : req.body.Univ_Board,
+                        Category      : req.body.Category,
+                        Govt_Private  : req.body.Govt_Private,
+                        Yr_of_exp     : req.body.Yr_of_exp,
+                        Place         : req.body.Place,
+                        City          : req.body.City,
+                        District      : req.body.District,
+                        State         : req.body.State,
+                        Adhaar_No     : req.body.Adhaar_No,
+                        Mobile_Num    : req.body.Mobile_Num,
+                        Mail_id       : req.body.Mail_id,
+                        Approved      : req.body.Approved,
+                        Language      : req.body.Language,
+                        filename      : req.file.filename
+                        };
                     console.log(req.body.filename);
                     doctor_inf['password']  = await bcrypt.hashSync(doctor_inf['password'],20);
                      
