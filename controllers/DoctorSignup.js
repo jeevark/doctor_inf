@@ -5,6 +5,7 @@ const jwt =require('jsonwebtoken');
 
 const ACCESS_TOKEN = 'fbvglafghzdhdirgfasdlfger';
 const upload =require('../File_uploads/single')
+
 let document = 'doctor_inf';
 const sessions ={}; 
 
